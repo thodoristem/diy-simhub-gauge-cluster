@@ -12,7 +12,7 @@
   "EditorExpanded": true,
   "Name": "Custom Serial device",
   "Description": "DIY Gauge Cluster",
-  "LastErrorDate": "2025-02-09T17:57:06.7385324+02:00",
+  "LastErrorDate": "2025-02-13T01:01:56.6390049+02:00",
   "LastErrorMessage": null,
   "IsFreezed": false,
   "SettingsBuilder": {
@@ -91,7 +91,7 @@
       "Message": {
         "JSExt": 0,
         "Interpreter": 1,
-        "Expression": "if (parseInt($prop('DataCorePlugin.GameRunning'))){\r\n\t// Real Data\r\n\trpm = parseInt($prop('Rpms'));\r\n\tkph = parseFloat($prop('SpeedKmh'));\r\n\tgear = parseInt($prop('Gear'));\r\n\tswitch(gear){\r\n\t\tcase 'R':\r\n\t\t\tgear = -1;\r\n\t\t\tbreak;\r\n\t\tcase 'N':\r\n\t\t\tgear = 0;\r\n\t\t\tbreak;\r\n\t}\r\n\tshiftLight = parseFloat($prop('CarSettings_RPMShiftLight1')) \r\n\t      + parseFloat($prop('CarSettings_RPMShiftLight2'))\r\n\t      + parseInt($prop('CarSettings_RPMRedLineReached'));\r\n\t      \r\n} else {\r\n    // For testing\r\n\trpm = $prop('Settings.Rpms');\r\n\tkph = $prop('Settings.Kph');\r\n\tgear = $prop('Settings.Gear');\r\n\tshiftLight = (rpm > 7000) + (rpm > 8000) + (rpm > 9000);\r\n}\r\n\r\ndimmer = $prop('Settings.Dimmer');\r\n\r\nreturn String(rpm).padStart(5,'0')  + 'R' \r\n     + String(kph.toFixed(2)).padStart(6,'0')  + 'S' \r\n\t + String(gear).padStart(2,'0') + 'G'\r\n\t + String(shiftLight.toFixed(1)).padStart(3,'0') + 'L'\r\n\t + String(dimmer).padStart(3,'0') + 'D'\r\n\t + '|';",
+        "Expression": "if (parseInt($prop('DataCorePlugin.GameRunning'))){\r\n\t// Real Data\r\n\trpm = parseInt($prop('Rpms'));\r\n\tkph = parseFloat($prop('SpeedKmh'));\r\n\tgear = $prop('Gear');\r\n\tswitch(gear){\r\n\t\tcase 'R':\r\n\t\t\tgear = -1;\r\n\t\t\tbreak;\r\n\t\tcase 'N':\r\n\t\t\tgear = 0;\r\n\t\t\tbreak;\r\n\t}\r\n\tshiftLight = parseFloat($prop('CarSettings_RPMShiftLight1')) \r\n\t      + parseFloat($prop('CarSettings_RPMShiftLight2'))\r\n\t      + parseInt($prop('CarSettings_RPMRedLineReached'));\r\n\t      \r\n} else {\r\n    // For testing\r\n\trpm = $prop('Settings.Rpms');\r\n\tkph = $prop('Settings.Kph');\r\n\tgear = $prop('Settings.Gear');\r\n\tshiftLight = (rpm > 7000) + (rpm > 8000) + (rpm > 9000);\r\n}\r\n\r\ndimmer = $prop('Settings.Dimmer');\r\n\r\nreturn String(rpm).padStart(5,'0')  + 'R' \r\n     + String(kph.toFixed(2)).padStart(6,'0')  + 'S' \r\n\t + String(gear).padStart(2,'0') + 'G'\r\n\t + String(shiftLight.toFixed(1)).padStart(3,'0') + 'L'\r\n\t + String(dimmer).padStart(3,'0') + 'D'\r\n\t + '|';",
         "PreExpression": "var rpm = 0;\r\nvar kph = 0;\r\nvar gear = '';\r\nvar shiftLight = 0;\r\nvar dimmer = 0;"
       },
       "IsEnabled": true,
