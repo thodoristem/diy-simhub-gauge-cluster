@@ -1,0 +1,101 @@
+{
+  "AutomaticReconnect": true,
+  "SerialPortName": "COM15",
+  "StartupDelayMs": 1000,
+  "IsConnecting": false,
+  "IsEnabled": true,
+  "LogIncomingData": false,
+  "IsConnected": true,
+  "BaudRate": 115200,
+  "DtrEnable": true,
+  "RtsEnable": true,
+  "EditorExpanded": true,
+  "Name": "Custom Serial device",
+  "Description": "DIY Gauge Cluster",
+  "LastErrorDate": "2025-02-09T17:57:06.7385324+02:00",
+  "LastErrorMessage": null,
+  "IsFreezed": false,
+  "SettingsBuilder": {
+    "Settings": [
+      {
+        "Settings": [
+          {
+            "Maximum": 100,
+            "Minimum": 0,
+            "PropertyName": "Dimmer",
+            "CurrentValue": 20,
+            "Name": null,
+            "TypeName": "SliderEntry",
+            "Label": "Light Dimmer",
+            "Id": "76106249-dde8-4e7d-9c15-a2b0f76dc26a"
+          }
+        ],
+        "Name": null,
+        "TypeName": "GroupEntry",
+        "Label": "Config",
+        "Id": "9d606d0c-022a-4005-b1a6-49315d3e07ef"
+      },
+      {
+        "Settings": [
+          {
+            "Maximum": 11000,
+            "Minimum": 0,
+            "PropertyName": "Rpms",
+            "CurrentValue": 0,
+            "Name": null,
+            "TypeName": "SliderEntry",
+            "Label": "RPM",
+            "Id": "0a0f081e-dd80-4308-8eb1-9f05ef463288"
+          },
+          {
+            "Maximum": 320,
+            "Minimum": 0,
+            "PropertyName": "Kph",
+            "CurrentValue": 0,
+            "Name": null,
+            "TypeName": "SliderEntry",
+            "Label": "KPH",
+            "Id": "85209b82-f187-4c03-8c2e-57487c5dbe98"
+          },
+          {
+            "Maximum": 9,
+            "Minimum": -1,
+            "PropertyName": "Gear",
+            "CurrentValue": 0,
+            "Name": null,
+            "TypeName": "SliderEntry",
+            "Label": "Gear",
+            "Id": "6c208876-2a6c-4f2c-a6a3-120ad4ce22a3"
+          }
+        ],
+        "Name": null,
+        "TypeName": "GroupEntry",
+        "Label": "Test (Works when game is NOT running)",
+        "Id": "277c4933-21ed-41ee-8770-85eacc6c8312"
+      }
+    ],
+    "IsEditMode": false
+  },
+  "OnConnectMessage": {
+    "JSExt": 0,
+    "Interpreter": 1,
+    "Expression": ""
+  },
+  "OnDisconnectMessage": {
+    "JSExt": 0,
+    "Interpreter": 1,
+    "Expression": ""
+  },
+  "UpdateMessages": [
+    {
+      "Message": {
+        "JSExt": 0,
+        "Interpreter": 1,
+        "Expression": "if (parseInt($prop('DataCorePlugin.GameRunning'))){\r\n\t// Real Data\r\n\trpm = parseInt($prop('Rpms'));\r\n\tkph = parseFloat($prop('SpeedKmh'));\r\n\tgear = parseInt($prop('Gear'));\r\n\tswitch(gear){\r\n\t\tcase 'R':\r\n\t\t\tgear = -1;\r\n\t\t\tbreak;\r\n\t\tcase 'N':\r\n\t\t\tgear = 0;\r\n\t\t\tbreak;\r\n\t}\r\n\tshiftLight = parseFloat($prop('CarSettings_RPMShiftLight1')) \r\n\t      + parseFloat($prop('CarSettings_RPMShiftLight2'))\r\n\t      + parseInt($prop('CarSettings_RPMRedLineReached'));\r\n\t      \r\n} else {\r\n    // For testing\r\n\trpm = $prop('Settings.Rpms');\r\n\tkph = $prop('Settings.Kph');\r\n\tgear = $prop('Settings.Gear');\r\n\tshiftLight = (rpm > 7000) + (rpm > 8000) + (rpm > 9000);\r\n}\r\n\r\ndimmer = $prop('Settings.Dimmer');\r\n\r\nreturn String(rpm).padStart(5,'0')  + 'R' \r\n     + String(kph.toFixed(2)).padStart(6,'0')  + 'S' \r\n\t + String(gear).padStart(2,'0') + 'G'\r\n\t + String(shiftLight.toFixed(1)).padStart(3,'0') + 'L'\r\n\t + String(dimmer).padStart(3,'0') + 'D'\r\n\t + '|';",
+        "PreExpression": "var rpm = 0;\r\nvar kph = 0;\r\nvar gear = '';\r\nvar shiftLight = 0;\r\nvar dimmer = 0;"
+      },
+      "IsEnabled": true,
+      "MaximumFrequency": 60
+    }
+  ]
+}
