@@ -37,7 +37,7 @@ const float STEPS_PER_DEG = (MOTOR_STEPS * MOTOR_MICROSTEPS) / 360.0f;
 #define RPM_GAUGE_STOP A6
 #define RPM_GAUGE_STEP 3
 #define RPM_GAUGE_DIR 2
-#define RPM_GAUGE_MIN_OFFSET -4 // Offset of the rpm zero mark from the min stop
+#define RPM_GAUGE_MIN_OFFSET -5 // Offset of the rpm zero mark from the min stop
 #define RPM_GAUGE_MAX_OFFSET 6  // Offset of max speed mark from the max stop
 
 AccelStepper rpmGaugeStepper(AccelStepper::DRIVER, RPM_GAUGE_STEP, RPM_GAUGE_DIR);
